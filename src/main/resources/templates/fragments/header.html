@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+</head>
+<body>
+
+<div class="container">
+    <div th:fragment="header">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+
+                    <button type="button" class="navbar-toggle" data-toggle="collapse"
+                            data-target="#navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#" th:href="@{/}" th:text="#{header.navbar.menu_home}"></a>
+                </div>
+
+
+                <div class="collapse navbar-collapse" id="navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="#" th:href="@{/prices}" th:text="#{header.navbar.menu_prices}"></a></li>
+                        <li><a href="#" th:href="@{/price/new}" th:text="#{header.navbar.menu_add_price}"></a></li>
+
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                               th:text="#{header.navbar.menu_references}"></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Действие</a></li>
+                                <li><a href="#">Другое действие</a></li>
+                                <li><a href="#">Что-то еще</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">Отдельная ссылка</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">Еще одна отдельная ссылка</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="/?lang=en">En</a></li>
+                        <li><a href="/?lang=ru">Ru</a></li>
+
+                    </ul>
+
+                </div>
+            </div>
+        </nav>
+
+        <div class="jumbotron">
+            <div class="row text-center">
+                <div class="">
+                    <h2>Spring Framework My Sample</h2>
+
+                    <h3>Spring Boot Buh App</h3>
+                </div>
+            </div>
+            <!--<div class="row text-center">-->
+            <!--<img src="../../static/images/NewBannerBOOTS_2.png" width="400"-->
+            <!--th:src="@{/images/NewBannerBOOTS_2.png}"/>-->
+            <!--</div>-->
+        </div>
+    </div>
+</div>
+</body>
+</html>
