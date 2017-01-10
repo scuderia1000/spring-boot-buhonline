@@ -2,6 +2,7 @@ package com.valentin.ershov.controllers;
 
 import com.valentin.ershov.domain.Price;
 import com.valentin.ershov.service.PriceService;
+import com.valentin.ershov.service.UnitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +16,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class PriceController {
     private PriceService priceService;
+    private UnitService unitService;
+
+    @Autowired
+    public void setUnitService(UnitService unitService) {
+        this.unitService = unitService;
+    }
 
     @Autowired
     public void setPriceService(PriceService priceService) {
@@ -30,6 +37,7 @@ public class PriceController {
     @RequestMapping("price/new")
     public String newPrice(Model model) {
         model.addAttribute("price", new Price());
+        model.addAttribute("units", unitService.listAllUnits());
         return "priceform";
     }
 
@@ -43,5 +51,18 @@ public class PriceController {
     public String showPrice(@PathVariable Integer id, Model model) {
         model.addAttribute("price", priceService.getPriceById(id));
         return "priceshow";
+    }
+
+    @RequestMapping("price/edit/{id}")
+    public String edit(@PathVariable Integer id, Model model) {
+        model.addAttribute("price", priceService.getPriceById(id));
+        model.addAttribute("units", unitService.listAllUnits());
+        return "priceform";
+    }
+
+    @RequestMapping("price/delete/{id}")
+    public String delete(@PathVariable Integer id) {
+        priceService.deletePrice(id);
+        return "redirect:/prices";
     }
 }

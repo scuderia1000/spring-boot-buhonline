@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:dt="http://github.com/dandelion/datatables">
+<!--xmlns:ddl="http://www.thymeleaf.org/dandelion"-->
+
+<head lang="en">
+
+    <title th:text="#{units.title}"></title>
+
+    <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+</head>
+<body>
+<div class="container">
+    <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+    <a class="btn btn-default" href="/unit/new" role="button" th:text="#{units.add}"></a>
+    <div th:if="${not #lists.isEmpty(units)}">
+        <h2 th:text="#{units.h2}"></h2>
+        <table id="unitTable" class="table table-striped"
+               dt:table="true" dt:pagination="true">
+            <thead>
+            <tr>
+                <th dt:sortable="false" th:text="#{column.id}"></th>
+                <th th:text="#{column.name}"></th>
+                <th th:text="#{column.view}"></th>
+                <th th:text="#{column.edit}"></th>
+                <th th:text="#{column.delete}"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="unit : ${units}">
+                <td th:text="${unit.id}"><a href="/unit/${unit.id}" th:text="#{column.id}"></a></td>
+                <td th:text="${unit.name}"></td>
+                <td><a th:href="${'/unit/' + unit.id}" th:text="#{column.view}"></a></td>
+                <td><a th:href="${'/unit/edit/' + unit.id}" th:text="#{column.edit}"></a></td>
+                <td><a th:href="${'/unit/delete/' + unit.id}" th:text="#{column.delete}"></a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

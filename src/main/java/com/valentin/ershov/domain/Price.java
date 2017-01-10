@@ -15,6 +15,26 @@ public class Price {
 
     private String name;
 
+    private String unit;
+
+    private boolean isCalculated;
+
+    public boolean getIsCalculated() {
+        return isCalculated;
+    }
+
+    public void setIsCalculated(boolean calculated) {
+        isCalculated = calculated;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
+
     public Integer getId() {
         return id;
     }

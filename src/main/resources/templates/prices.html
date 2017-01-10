@@ -5,30 +5,38 @@
 
 <head lang="en">
 
-    <title>List of Prices</title>
+    <title th:text="#{prices.title}"></title>
 
     <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
 </head>
 <body>
 <div class="container">
     <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
-    <a class="btn btn-default" href="/price/new" role="button">Add price</a>
+    <a class="btn btn-default" href="/price/new" role="button" th:text="#{prices.add}"></a>
     <div th:if="${not #lists.isEmpty(prices)}">
-        <h2>Prices List</h2>
+        <h2 th:text="#{prices.h2}"></h2>
         <table id="priceTable" class="table table-striped"
                dt:table="true" dt:pagination="true">
             <thead>
             <tr>
-                <th dt:sortable="false">Id</th>
-                <th>Price Name</th>
-                <th>View</th>
+                <th dt:sortable="false" th:text="#{column.id}"></th>
+                <th th:text="#{column.name}"></th>
+                <th th:text="#{column.unit}"></th>
+                <th th:text="#{price.type.calculated}"></th>
+                <th th:text="#{column.view}"></th>
+                <th th:text="#{column.edit}"></th>
+                <th th:text="#{column.delete}"></th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="price : ${prices}">
                 <td th:text="${price.id}"><a href="/price/${price.id}">Id</a></td>
-                <td th:text="${price.name}">Price Name</td>
-                <td><a th:href="${'/price/' + price.id}">View</a></td>
+                <td th:text="${price.name}">Name</td>
+                <td th:text="${price.unit}">Unit</td>
+                <td th:text="${price.isCalculated}">isCalculated</td>
+                <td><a th:href="${'/price/' + price.id}" th:text="#{column.view}">View</a></td>
+                <td><a th:href="${'/price/edit/' + price.id}" th:text="#{column.edit}">Edit</a></td>
+                <td><a th:href="${'/price/delete/' + price.id}" th:text="#{column.delete}">Delete</a></td>
             </tr>
             </tbody>
         </table>
