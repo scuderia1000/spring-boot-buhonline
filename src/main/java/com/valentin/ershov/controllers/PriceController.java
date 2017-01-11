@@ -38,6 +38,7 @@ public class PriceController {
     public String newPrice(Model model) {
         model.addAttribute("price", new Price());
         model.addAttribute("units", unitService.listAllUnits());
+        model.addAttribute("prices", priceService.listAllPrices());
         return "priceform";
     }
 
