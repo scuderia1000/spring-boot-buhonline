@@ -1,5 +1,5 @@
 # spring boot buhonline application
-Used technologic:
+used technology: \n
 spring boot
 thymeleaf
 spring mvc
