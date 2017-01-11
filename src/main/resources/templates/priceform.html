@@ -6,6 +6,7 @@
 
     <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
 
+    <!-- Показать поля для расчетной цены при загрузке страницы и при нажатии на чекбокс-->
     <script type="text/javascript">
 
         jQuery(document).ready(function () {
@@ -50,16 +51,16 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label" th:text="#{column.unit} + ':'">Unit</label>
                 <div class="col-sm-10">
-                    <!--<select class="form-control" th:field="*{unit}">-->
+
+                    <!-- Список едениц измерения -->
                     <select class="form-control" name="unit">
-                        <!--<option selected="selected" disabled="disabled" th:text="#{column.placeholder}" value=""></option>-->
                         <option th:selected="selected" th:disabled="disabled" th:text="#{select.unit}"
                                 value=""></option>
                         <option th:each="unit : ${units}" th:value="${unit.name}" th:text="${unit.name}"></option>
                     </select>
                 </div>
             </div>
-
+            <!-- Чекбокс выбора типа цены, расчетная или нет -->
             <div class="form-group">
                 <label class="col-sm-2 control-label" th:text="#{price.type} + ':'">Price type</label>
                 <div class="col-sm-10">
@@ -73,21 +74,23 @@
                 </div>
             </div>
 
-            <!--<div class="form-group" id="calculated" style="display:none">-->
+            <!-- Группа ввода для расчетной цены, показывается при чекнутом чекбоксе -->
             <div class="form-group" id="calculated">
-                <label class="col-sm-2 control-label" th:text="#{price.type.base} + ':'"></label>
-                <div class="col-sm-10">
-                    <select class="form-control" name="base_price_id">
-                        <!--<option selected="selected" disabled="disabled" th:text="#{column.placeholder}" value=""></option>-->
-                        <option th:selected="selected" th:disabled="disabled" th:text="#{select.base_price}"
-                                value=""></option>
-                        <option th:each="price : ${prices}" th:value="${price.id}" th:text="${price.name}"></option>
-                    </select>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" th:text="#{price.type.base} + ':'"></label>
+                    <div class="col-sm-10">
+                        <select class="form-control" name="base_price_id">
+                            <option th:selected="selected" th:disabled="disabled" th:text="#{select.base_price}"
+                                    value=""></option>
+                            <option th:each="price : ${prices}" th:value="${price.id}" th:text="${price.name}"></option>
+                        </select>
+                    </div>
                 </div>
-
-                <label class="col-sm-2 control-label" th:text="#{price.type.base} + ':'"></label>
-                <div class="col-sm-10">
-
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" th:text="#{price.type_multipler} + ':'"></label>
+                    <div class="col-sm-10">
+                        <input type="number" class="form-control" th:field="*{multipler}"/>
+                    </div>
                 </div>
             </div>
 
