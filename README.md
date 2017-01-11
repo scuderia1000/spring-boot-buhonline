@@ -1,4 +1,4 @@
-# spring boot buhonline application
+# Spring boot sample application
 Used technology:
 <br/>spring boot
 <br/>thymeleaf
