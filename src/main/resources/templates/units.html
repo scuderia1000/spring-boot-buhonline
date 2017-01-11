@@ -12,9 +12,9 @@
 <body>
 <div class="container">
     <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+    <h2 th:text="#{units.title}"></h2>
     <a class="btn btn-default" href="/unit/new" role="button" th:text="#{units.add}"></a>
     <div th:if="${not #lists.isEmpty(units)}">
-        <h2 th:text="#{units.h2}"></h2>
         <table id="unitTable" class="table table-striped"
                dt:table="true" dt:pagination="true">
             <thead>

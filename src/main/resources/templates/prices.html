@@ -12,9 +12,9 @@
 <body>
 <div class="container">
     <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+    <h2 th:text="#{prices.title}"></h2>
     <a class="btn btn-default" href="/price/new" role="button" th:text="#{prices.add}"></a>
     <div th:if="${not #lists.isEmpty(prices)}">
-        <h2 th:text="#{prices.h2}"></h2>
         <table id="priceTable" class="table table-striped"
                dt:table="true" dt:pagination="true">
             <thead>
