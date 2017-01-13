@@ -6,17 +6,17 @@
 
 <head lang="en">
 
-    <title th:text="#{units.title}"></title>
+    <title th:text="#{product.title}"></title>
 
     <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
 </head>
 <body>
 <div class="container">
     <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
-    <h2 th:text="#{units.title}"></h2>
-    <a class="btn btn-default" th:href="@{/unit/new}" sec:authorize="hasRole('ROLE_ADMIN')" role="button" th:text="#{units.add}"></a>
-    <div th:if="${not #lists.isEmpty(units)}">
-        <table id="unitTable" class="table table-striped"
+    <h2 th:text="#{product.title}"></h2>
+    <a class="btn btn-default" th:href="@{/product/new}" sec:authorize="hasRole('ROLE_ADMIN')" role="button" th:text="#{product.add}"></a>
+    <div th:if="${not #lists.isEmpty(products)}">
+        <table id="productTable" class="table table-striped"
                dt:table="true" dt:pagination="true">
             <thead>
             <tr>
@@ -28,12 +28,12 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="unit : ${units}">
-                <td th:text="${unit.id}"><a href="/unit/${unit.id}" th:text="#{column.id}"></a></td>
-                <td th:text="${unit.name}"></td>
-                <td><a th:href="${'/unit/' + unit.id}" th:text="#{column.view}"></a></td>
-                <td><a th:href="${'/unit/edit/' + unit.id}" th:text="#{column.edit}"></a></td>
-                <td><a th:href="${'/unit/delete/' + unit.id}" th:text="#{column.delete}"></a></td>
+            <tr th:each="product : ${products}">
+                <td th:text="${product.id}"><a href="/product/${product.id}">Id</a></td>
+                <td th:text="${product.name}">Name</td>
+                <td><a th:href="${'/product/' + product.id}" th:text="#{column.view}">View</a></td>
+                <td><a th:href="${'/product/edit/' + product.id}" th:text="#{column.edit}">Edit</a></td>
+                <td><a th:href="${'/product/delete/' + product.id}" th:text="#{column.delete}">Delete</a></td>
             </tr>
             </tbody>
         </table>

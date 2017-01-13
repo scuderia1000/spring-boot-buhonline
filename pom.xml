@@ -60,6 +60,12 @@
             <version>2.1.4</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.thymeleaf.extras</groupId>
+            <artifactId>thymeleaf-extras-springsecurity4</artifactId>
+            <!--<version>2.1.2.RELEASE</version>-->
+        </dependency>
+
         <!-- Dandelion (for paging and sorting) -->
         <dependency>
             <groupId>com.github.dandelion</groupId>

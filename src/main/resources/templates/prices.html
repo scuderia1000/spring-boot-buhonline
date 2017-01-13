@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:dt="http://github.com/dandelion/datatables">
+      xmlns:dt="http://github.com/dandelion/datatables"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <!--xmlns:ddl="http://www.thymeleaf.org/dandelion"-->
 
 <head lang="en">
@@ -13,7 +14,7 @@
 <div class="container">
     <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
     <h2 th:text="#{prices.title}"></h2>
-    <a class="btn btn-default" href="/price/new" role="button" th:text="#{prices.add}"></a>
+    <a class="btn btn-default" th:href="@{/price/new}" sec:authorize="hasRole('ROLE_ADMIN')" role="button" th:text="#{prices.add}"></a>
     <div th:if="${not #lists.isEmpty(prices)}">
         <table id="priceTable" class="table table-striped"
                dt:table="true" dt:pagination="true">

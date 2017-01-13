@@ -1,6 +1,8 @@
 package com.valentin.ershov.domain;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by Ershov-V-V on 20.12.2016.
@@ -17,17 +19,22 @@ public class Price {
     private boolean isCalculated;
     private Integer base_price_id;
     private int multipler;
-    //    private String base_price_name;
+
+    @ManyToMany
+    @JoinTable(name = "product_price_value",
+        joinColumns = @JoinColumn(name = "price_id"),
+        inverseJoinColumns = @JoinColumn(name = "product_id"))
+    private Set<Product> products = new HashSet<Product>();
 
 
-//    public String getBase_price_name() {
-//        return base_price_name;
-//    }
-//
-//    public void setBase_price_name(String base_price_name) {
-//        this.base_price_name = base_price_name;
-//    }
-//
+    public Set<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(Set<Product> products) {
+        this.products = products;
+    }
+
     public Integer getBase_price_id() {
         return base_price_id;
     }

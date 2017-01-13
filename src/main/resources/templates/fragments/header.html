@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head lang="en">
 </head>
 <body>
@@ -30,7 +31,7 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"
                                th:text="#{header.navbar.menu_references}"></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#" th:text="#{header.navbar.dropdown_item1}"></a></li>
+                                <li><a href="#" th:href="@{/products}" th:text="#{header.navbar.dropdown_item1}"></a></li>
                                 <li><a href="#" th:href="@{/prices}" th:text="#{header.navbar.dropdown_item2}"></a></li>
                                 <li><a href="#" th:href="@{/units}" th:text="#{header.navbar.dropdown_item3}"></a></li>
                                 <!--<li class="divider"></li>-->
@@ -40,20 +41,24 @@
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#" sec:authorize="isAnonymous()" th:href="@{/login}" th:text="#{login}">Sign in</a>
+                            <a href="#" sec:authorize="isAuthenticated()" th:href="@{/logout}" th:text="#{logout}">Sign out</a>
+                        </li>
                         <li><a href="/?lang=en">En</a></li>
                         <li><a href="/?lang=ru">Ru</a></li>
-
                     </ul>
-
                 </div>
             </div>
         </nav>
 
+        <div class="welcome">
+            <span sec:authorize="isAuthenticated()" th:text="#{welcome}+' '">Welcome </span><span sec:authorize="isAuthenticated()" sec:authentication="name"></span>
+        </div>
         <div class="jumbotron">
             <div class="row text-center">
                 <div class="">
                     <h2>Spring Framework My Sample</h2>
-
                     <h3>Spring Boot Buh App</h3>
                 </div>
             </div>
