@@ -2,6 +2,7 @@ package com.valentin.ershov.controllers;
 
 import com.valentin.ershov.domain.Price;
 import com.valentin.ershov.domain.Product;
+import com.valentin.ershov.domain.ProductPrice;
 import com.valentin.ershov.service.PriceService;
 import com.valentin.ershov.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by Ershov-V-V on 12.01.2017.
@@ -44,21 +49,59 @@ public class ProductController {
     }
 
     @RequestMapping(value = "product", method = RequestMethod.POST)
-    public String saveProduct(@RequestParam Integer id, @RequestParam String name, @RequestParam Integer priceId, Model model) {
+    public String saveProduct(@RequestParam Integer id, @RequestParam String name, @RequestParam Integer priceId,
+                              @RequestParam long value, Model model) {
         Product product = null;
-        product = id != null ? productService.getProductById(id) : new Product();
-
-        product.setName(name);
         Price price = priceService.getPriceById(priceId);
-        if (!product.hasPrice(price)) {
-            product.getPrices().add(price);
+        ProductPrice productPrice = null;
+//        if (!product.hasPrice(price)) {
+//            product.getPrices().add(price);
+//        }
+        if (id != null) {
+            product = productService.getProductById(id);
+        } else {
+            product = new Product();
         }
+        product.setName(name);
+
+        if (!product.hasPrice(price)) {
+            productPrice = new ProductPrice();
+            productPrice.setProduct(product);
+            productPrice.setPrice(price);
+            productPrice.setValue(value);
+            productPrice.setCreatedDate(new Date());
+            product.getProductPrices().add(productPrice);
+        }
+
+
+
+//
+//        Price price = priceService.getPriceById(priceId);
+//        if (!product.hasPrice(price)) {
+//            product.getPrices().add(price);
+//        }
         productService.saveProduct(product);
         model.addAttribute("product", productService.getProductById(product.getId()));
         model.addAttribute("prices", priceService.listAllPrices());
         return "redirect:/product/" + product.getId();
 
     }
+//    @RequestMapping(value = "product", method = RequestMethod.POST)
+//    public String saveProduct(@RequestParam Integer id, @RequestParam String name, @RequestParam Integer priceId, Model model) {
+//        Product product = null;
+//        product = id != null ? productService.getProductById(id) : new Product();
+//
+//        product.setName(name);
+//        Price price = priceService.getPriceById(priceId);
+//        if (!product.hasPrice(price)) {
+//            product.getPrices().add(price);
+//        }
+//        productService.saveProduct(product);
+//        model.addAttribute("product", productService.getProductById(product.getId()));
+//        model.addAttribute("prices", priceService.listAllPrices());
+//        return "redirect:/product/" + product.getId();
+//
+//    }
 //    @RequestMapping(value = "product", method = RequestMethod.POST)
 //    public String saveProduct(Product product) {
 //        productService.saveProduct(product);

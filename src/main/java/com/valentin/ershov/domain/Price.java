@@ -13,6 +13,7 @@ public class Price {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "price_id")
     private Integer id;
     private String name;
     private String unit;
@@ -25,6 +26,11 @@ public class Price {
         joinColumns = @JoinColumn(name = "price_id"),
         inverseJoinColumns = @JoinColumn(name = "product_id"))
     private Set<Product> products = new HashSet<Product>();
+
+    @OneToMany(mappedBy = "primaryKey.price", cascade = CascadeType.ALL)
+    private Set<ProductPrice> productPrices = new HashSet<>();
+//@OneToMany(mappedBy = "price")
+//    private Set<ProductPrice> productPrices = new HashSet<>();
 
 
     public Set<Product> getProducts() {
@@ -81,5 +87,13 @@ public class Price {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<ProductPrice> getProductPrices() {
+        return productPrices;
+    }
+
+    public void setProductPrices(Set<ProductPrice> productPrices) {
+        this.productPrices = productPrices;
     }
 }
