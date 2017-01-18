@@ -76,7 +76,6 @@
                     </div>
                 </div>
             </div>
-
             <!--<div class="form-group">-->
             <!--<label class="col-sm-2 control-label" th:text="#{productform.prices}+':'">Prices: </label>-->
             <!--<div class="col-sm-10">-->
@@ -97,33 +96,57 @@
             <!--</div>-->
             <!--</div>-->
 
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" th:text="#{productform.price}+':'">Price</label>
+                        <div class="col-sm-4">
+                            <select name="priceId" class="form-control">
+                                <option th:selected="selected" th:disabled="disabled" th:text="#{select.price}"
+                                        value=""></option>
+                                <option class="form-control input-sm" th:each="price : ${prices}"
+                                        th:value="${price.id}" th:text="${price.name}">Price
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-sm-2">
+                            <input type="text" class="form-control" name="value"/>
+                        </div>
+                        <div class="col-sm-2">
+                        <span class="input-group-btn">
+									<button type="submit" class="btn btn-default" name="action" value="add_price">Add skill</button>
+								</span>
+                        </div>
 
-            <div class="form-group">
-                <label class="col-sm-2 control-label" th:text="#{productform.price}+':'">Price</label>
-                <div class="col-sm-10">
-                    <!--<select path="prices" items="${prices}" multiple="true" itemValue="id" itemLabel="price" class="form-control input-sm"></select>-->
-
-                    <!-- Список цен -->
-                    <select class="form-control" name="priceId">
-                        <option th:selected="selected" th:disabled="disabled" th:text="#{select.price}"
-                                value=""></option>
-                        <option class="form-control input-sm" th:each="price : ${prices}"
-                                th:value="${price.id}" th:text="${price.name}"></option>
-                    </select>
-
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <label class="col-sm-2 control-label" th:text="#{column.value}+':'">Value</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" name="value"/>
-                </div>
-            </div>
+
+            <!--<div class="form-group">-->
+            <!--<label class="col-sm-2 control-label" th:text="#{productform.price}+':'">Price</label>-->
+            <!--<div class="col-sm-10">-->
+            <!--&lt;!&ndash;<select path="prices" items="${prices}" multiple="true" itemValue="id" itemLabel="price" class="form-control input-sm"></select>&ndash;&gt;-->
+
+            <!--&lt;!&ndash; Список цен &ndash;&gt;-->
+            <!--<select class="form-control" name="priceId">-->
+            <!--<option th:selected="selected" th:disabled="disabled" th:text="#{select.price}"-->
+            <!--value=""></option>-->
+            <!--<option class="form-control input-sm" th:each="price : ${prices}"-->
+            <!--th:value="${price.id}" th:text="${price.name}"></option>-->
+            <!--</select>-->
+
+            <!--</div>-->
+            <!--</div>-->
+
+            <!--<div class="form-group">-->
+            <!--<label class="col-sm-2 control-label" th:text="#{column.value}+':'">Value</label>-->
+            <!--<div class="col-sm-10">-->
+            <!--<input type="text" class="form-control" name="value"/>-->
+            <!--</div>-->
+            <!--</div>-->
 
 
             <div class="row">
-                <button type="submit" class="btn btn-default" th:text="#{button.submit}"></button>
+                <button type="submit" class="btn btn-default" th:text="#{button.submit}" name="action" value="save"></button>
             </div>
         </form>
     </div>

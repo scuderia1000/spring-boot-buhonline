@@ -48,15 +48,12 @@ public class ProductController {
         return "productform";
     }
 
-    @RequestMapping(value = "product", method = RequestMethod.POST)
+    @RequestMapping(value = "product", method = RequestMethod.POST, params="action=save")
     public String saveProduct(@RequestParam Integer id, @RequestParam String name, @RequestParam Integer priceId,
                               @RequestParam long value, Model model) {
         Product product = null;
         Price price = priceService.getPriceById(priceId);
         ProductPrice productPrice = null;
-//        if (!product.hasPrice(price)) {
-//            product.getPrices().add(price);
-//        }
         if (id != null) {
             product = productService.getProductById(id);
         } else {
@@ -72,18 +69,19 @@ public class ProductController {
             productPrice.setCreatedDate(new Date());
             product.getProductPrices().add(productPrice);
         }
-
-
-
-//
-//        Price price = priceService.getPriceById(priceId);
-//        if (!product.hasPrice(price)) {
-//            product.getPrices().add(price);
-//        }
         productService.saveProduct(product);
         model.addAttribute("product", productService.getProductById(product.getId()));
         model.addAttribute("prices", priceService.listAllPrices());
         return "redirect:/product/" + product.getId();
+
+    }
+
+    @RequestMapping(value = "product", method = RequestMethod.POST, params="action=add_price")
+    public String savePrice(@RequestParam Integer id, @RequestParam String name, @RequestParam Integer priceId,
+                              @RequestParam long value, Model model) {
+
+
+        return "redirect:product/new";
 
     }
 //    @RequestMapping(value = "product", method = RequestMethod.POST)
