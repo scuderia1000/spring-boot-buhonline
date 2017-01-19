@@ -19,7 +19,7 @@ public class ProductPrice {
     private ProductPriceId primaryKey = new ProductPriceId();
 
     // Extra fields
-    private long value;
+    private Long value;
 
     @Column(name = "created_date")
     @Temporal(TemporalType.DATE)
@@ -33,11 +33,11 @@ public class ProductPrice {
         this.primaryKey = primaryKey;
     }
 
-    public long getValue() {
+    public Long getValue() {
         return value;
     }
 
-    public void setValue(long value) {
+    public void setValue(Long value) {
         this.value = value;
     }
 

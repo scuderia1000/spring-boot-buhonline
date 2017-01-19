@@ -15,12 +15,20 @@
         <form class="form-horizontal">
 
             <div class="form-group">
-                <label class="col-sm-2 control-label" th:text="#{column.name} + ':'"></label>
+                <label class="col-sm-2 control-label" th:text="#{column.name} + ':'">Name</label>
                 <div class="col-sm-10">
-                    <p class="form-control-static" th:text="${product.name}">Name</p>
+                    <p class="form-control-static" th:text="${product.name}">Product Name</p>
                 </div>
             </div>
-
+            <div class="form-group">
+                <label class="col-sm-2 control-label" th:text="#{productform.prices}+':'">Prices</label>
+                <div class="col-sm-10">
+                    <div class="row" th:each="productPrice : ${product.productPrices}">
+                        <div class="col-md-2" th:text="${productPrice.price.name}">Price Name</div>
+                        <div class="col-md-2" th:text="${productPrice.value}">Price Value</div>
+                    </div>
+                </div>
+            </div>
         </form>
     </div>
 </div>

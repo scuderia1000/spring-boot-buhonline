@@ -48,20 +48,36 @@ public class ProductController {
         return "productform";
     }
 
-    @RequestMapping(value = "product", method = RequestMethod.POST, params="action=save")
-    public String saveProduct(@RequestParam Integer id, @RequestParam String name, @RequestParam Integer priceId,
-                              @RequestParam long value, Model model) {
-        Product product = null;
-        Price price = priceService.getPriceById(priceId);
-        ProductPrice productPrice = null;
+    @RequestMapping(value = "product", method = RequestMethod.POST)
+    public String saveProduct(@RequestParam Integer id, @RequestParam String name, @RequestParam(required=false) Integer priceId,
+                              @RequestParam Long value, @RequestParam String action,
+                              @RequestParam(required=false) Integer priceIdToDelete, Model model) {
+
+        Product product;
+        Price price;
+        ProductPrice productPrice;
+
         if (id != null) {
             product = productService.getProductById(id);
         } else {
             product = new Product();
         }
         product.setName(name);
+        //Delete price from productPrice
+        if (action.equals("delete")) {
+            product.deleteProductPrice(priceIdToDelete);
+            productService.saveProduct(product);
+            model.addAttribute("product", productService.getProductById(product.getId()));
+            model.addAttribute("prices", priceService.listAllPrices());
+            return "productform";
+        }
 
-        if (!product.hasPrice(price)) {
+        if (priceId != null) {
+            price = priceService.getPriceById(priceId);
+        } else {
+            price = null;
+        }
+        if (price != null && !product.hasPrice(price)) {
             productPrice = new ProductPrice();
             productPrice.setProduct(product);
             productPrice.setPrice(price);
@@ -72,18 +88,21 @@ public class ProductController {
         productService.saveProduct(product);
         model.addAttribute("product", productService.getProductById(product.getId()));
         model.addAttribute("prices", priceService.listAllPrices());
-        return "redirect:/product/" + product.getId();
+
+        if (action.equals("add_price")) return "productform";
+
+        return"redirect:/product/" + product.getId();
 
     }
 
-    @RequestMapping(value = "product", method = RequestMethod.POST, params="action=add_price")
-    public String savePrice(@RequestParam Integer id, @RequestParam String name, @RequestParam Integer priceId,
-                              @RequestParam long value, Model model) {
-
-
-        return "redirect:product/new";
-
-    }
+//    @RequestMapping(value = "product", method = RequestMethod.POST, params="action=add_price")
+//    public String savePrice(@RequestParam Integer id, @RequestParam String name, @RequestParam Integer priceId,
+//                              @RequestParam long value, Model model) {
+//
+//
+//        return "redirect:product/new";
+//
+//    }
 //    @RequestMapping(value = "product", method = RequestMethod.POST)
 //    public String saveProduct(@RequestParam Integer id, @RequestParam String name, @RequestParam Integer priceId, Model model) {
 //        Product product = null;

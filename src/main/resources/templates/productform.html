@@ -67,12 +67,18 @@
                 </div>
             </div>
             <!--Список цен у номенклатуры -->
-            <div class="form-group">
-                <label class="col-sm-2 control-label" th:text="#{productform.prices}+':'">Prices</label>
-                <div class="col-sm-10">
-                    <div class="row" th:each="productPrice : ${product.productPrices}">
-                        <div class="col-md-2" th:text="${productPrice.price.name}">Price Name</div>
-                        <div class="col-md-2" th:text="${productPrice.value}">Price Value</div>
+            <div th:if="${not #lists.isEmpty(product.productPrices)}">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" th:text="#{productform.prices}+':'">Prices</label>
+                    <div class="col-sm-10">
+                        <div class="row" th:each="productPrice : ${product.productPrices}">
+                            <input type="hidden" name="priceIdToDelete" th:value="${productPrice.price.id}"/>
+                            <div class="col-md-2" th:text="${productPrice.price.name}">Price Name</div>
+                            <div class="col-md-2" th:text="${productPrice.value}">Price Value</div>
+                            <!--<span class="input-group-btn">-->
+									<button type="submit" class="btn btn-default" name="action" value="delete">Delete</button>
+								<!--</span>-->
+                        </div>
                     </div>
                 </div>
             </div>
@@ -96,29 +102,30 @@
             <!--</div>-->
             <!--</div>-->
 
-                <div class="row">
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label" th:text="#{productform.price}+':'">Price</label>
-                        <div class="col-sm-4">
-                            <select name="priceId" class="form-control">
-                                <option th:selected="selected" th:disabled="disabled" th:text="#{select.price}"
-                                        value=""></option>
-                                <option class="form-control input-sm" th:each="price : ${prices}"
-                                        th:value="${price.id}" th:text="${price.name}">Price
-                                </option>
-                            </select>
-                        </div>
-                        <div class="col-sm-2">
-                            <input type="text" class="form-control" name="value"/>
-                        </div>
-                        <div class="col-sm-2">
-                        <span class="input-group-btn">
-									<button type="submit" class="btn btn-default" name="action" value="add_price">Add skill</button>
-								</span>
-                        </div>
-
-                    </div>
+            <div class="row">
+                <!--<div class="form-group">-->
+                <label class="col-sm-2 control-label" th:text="#{productform.price}+':'">Price</label>
+                <div class="col-sm-4">
+                    <select name="priceId" class="form-control">
+                        <option th:selected="selected" th:disabled="disabled" th:text="#{select.price}"
+                                value=""></option>
+                        <option class="form-control input-sm" th:each="price : ${prices}"
+                                th:value="${price.id}" th:text="${price.name}">Price
+                        </option>
+                    </select>
                 </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" name="value"/>
+                </div>
+                <div class="col-sm-1">
+                        <span class="input-group-btn">
+									<button type="submit" class="btn btn-default" name="action" value="add_price"
+                                            th:text="#{priceshow.add}">Add price</button>
+								</span>
+                </div>
+
+                <!--</div>-->
+            </div>
 
 
             <!--<div class="form-group">-->
@@ -146,7 +153,8 @@
 
 
             <div class="row">
-                <button type="submit" class="btn btn-default" th:text="#{button.submit}" name="action" value="save"></button>
+                <button type="submit" class="btn btn-default" th:text="#{button.submit}" name="action"
+                        value="save"></button>
             </div>
         </form>
     </div>

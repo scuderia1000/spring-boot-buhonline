@@ -1,9 +1,7 @@
 package com.valentin.ershov.domain;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -27,8 +25,6 @@ public class Product {
 
     @OneToMany(mappedBy = "primaryKey.product", cascade = CascadeType.ALL)
     private Set<ProductPrice> productPrices = new HashSet<>();
-//@OneToMany(mappedBy = "product")
-//    private Set<ProductPrice> productPrices = new HashSet<>();
 
     public Integer getId() {
         return id;
@@ -46,16 +42,8 @@ public class Product {
         this.name = name;
     }
 
-//    public Set<Price> getPrices() {
-//        return prices;
-//    }
-//
-//    public void setPrices(Set<Price> prices) {
-//        this.prices = prices;
-//    }
-
     public boolean hasPrice(Price price) {
-        for (ProductPrice productPrice : productPrices) {
+        for (ProductPrice productPrice : getProductPrices()) {
             if (productPrice.getPrice().getId().equals(price.getId())) {
                 return true;
             }
@@ -69,5 +57,13 @@ public class Product {
 
     public void setProductPrices(Set<ProductPrice> productPrices) {
         this.productPrices = productPrices;
+    }
+
+    public void deleteProductPrice(Integer priceId) {
+        for (ProductPrice pp : getProductPrices()) {
+            if (pp.getPrice().getId().equals(priceId)) {
+                productPrices.remove(pp);
+            }
+        }
     }
 }
