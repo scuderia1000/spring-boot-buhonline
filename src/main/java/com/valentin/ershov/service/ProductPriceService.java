@@ -13,4 +13,6 @@ public interface ProductPriceService {
     ProductPrice saveProductPrice(ProductPrice productPrice);
 
     void deleteProductPrice(Integer id);
+
+    void deleteProductPrice(ProductPrice productPrice);
 }

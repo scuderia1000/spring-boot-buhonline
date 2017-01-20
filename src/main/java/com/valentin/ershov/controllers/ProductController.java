@@ -3,7 +3,9 @@ package com.valentin.ershov.controllers;
 import com.valentin.ershov.domain.Price;
 import com.valentin.ershov.domain.Product;
 import com.valentin.ershov.domain.ProductPrice;
+import com.valentin.ershov.repository.ProductPriceRepository;
 import com.valentin.ershov.service.PriceService;
+import com.valentin.ershov.service.ProductPriceService;
 import com.valentin.ershov.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +26,12 @@ import java.util.Set;
 public class ProductController {
     private ProductService productService;
     private PriceService priceService;
+//    private ProductPriceService productPriceService;
+
+//    @Autowired
+//    public void setProductPriceService(ProductPriceService productPriceService) {
+//        this.productPriceService = productPriceService;
+//    }
 
     @Autowired
     public void setPriceService(PriceService priceService) {
@@ -52,7 +60,6 @@ public class ProductController {
     public String saveProduct(@RequestParam Integer id, @RequestParam String name, @RequestParam(required=false) Integer priceId,
                               @RequestParam Long value, @RequestParam String action,
                               @RequestParam(required=false) Integer priceIdToDelete, Model model) {
-
         Product product;
         Price price;
         ProductPrice productPrice;
@@ -62,27 +69,23 @@ public class ProductController {
         } else {
             product = new Product();
         }
-        product.setName(name);
-        //Delete price from productPrice
-        if (action.equals("delete")) {
-            product.deleteProductPrice(priceIdToDelete);
-            productService.saveProduct(product);
-            model.addAttribute("product", productService.getProductById(product.getId()));
-            model.addAttribute("prices", priceService.listAllPrices());
-            return "productform";
-        }
+//        if (action.equals("delete")) {
+//            product.deleteProductPrice(priceIdToDelete);
+//            productService.saveProduct(product);
+//            model.addAttribute("product", productService.getProductById(product.getId()));
+//            model.addAttribute("prices", priceService.listAllPrices());
+//            return "productform";
+//        }
 
+        product.setName(name);
         if (priceId != null) {
             price = priceService.getPriceById(priceId);
         } else {
             price = null;
         }
+
         if (price != null && !product.hasPrice(price)) {
-            productPrice = new ProductPrice();
-            productPrice.setProduct(product);
-            productPrice.setPrice(price);
-            productPrice.setValue(value);
-            productPrice.setCreatedDate(new Date());
+            productPrice = new ProductPrice(product, price, value, new Date());
             product.getProductPrices().add(productPrice);
         }
         productService.saveProduct(product);
@@ -90,6 +93,12 @@ public class ProductController {
         model.addAttribute("prices", priceService.listAllPrices());
 
         if (action.equals("add_price")) return "productform";
+
+        //Delete price from product
+        if (action.equals("delete")) {
+            product.deleteProductPrice(priceIdToDelete);
+            return "productform";
+        }
 
         return"redirect:/product/" + product.getId();
 

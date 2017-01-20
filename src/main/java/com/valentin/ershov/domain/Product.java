@@ -23,7 +23,7 @@ public class Product {
 //        inverseJoinColumns = @JoinColumn(name = "price_id", referencedColumnName = "price_id"))
 //    private Set<Price> prices = new HashSet<Price>();
 
-    @OneToMany(mappedBy = "primaryKey.product", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "primaryKey.product", cascade = CascadeType.ALL, orphanRemoval=true)
     private Set<ProductPrice> productPrices = new HashSet<>();
 
     public Integer getId() {

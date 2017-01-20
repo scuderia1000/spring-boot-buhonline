@@ -37,4 +37,9 @@ public class ProductPriceServiceImpl implements ProductPriceService {
     public void deleteProductPrice(Integer id) {
         productPriceRepository.delete(id);
     }
+
+    @Override
+    public void deleteProductPrice(ProductPrice productPrice) {
+        productPriceRepository.delete(productPrice);
+    }
 }

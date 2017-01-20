@@ -21,25 +21,14 @@ public class Price {
     private Integer base_price_id;
     private int multipler;
 
-    @ManyToMany
-    @JoinTable(name = "product_price_value",
-        joinColumns = @JoinColumn(name = "price_id"),
-        inverseJoinColumns = @JoinColumn(name = "product_id"))
-    private Set<Product> products = new HashSet<Product>();
+//    @ManyToMany
+//    @JoinTable(name = "product_price_value",
+//        joinColumns = @JoinColumn(name = "price_id"),
+//        inverseJoinColumns = @JoinColumn(name = "product_id"))
+//    private Set<Product> products = new HashSet<Product>();
 
-    @OneToMany(mappedBy = "primaryKey.price", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "primaryKey.price", cascade = CascadeType.ALL, orphanRemoval=true)
     private Set<ProductPrice> productPrices = new HashSet<>();
-//@OneToMany(mappedBy = "price")
-//    private Set<ProductPrice> productPrices = new HashSet<>();
-
-
-    public Set<Product> getProducts() {
-        return products;
-    }
-
-    public void setProducts(Set<Product> products) {
-        this.products = products;
-    }
 
     public Integer getBase_price_id() {
         return base_price_id;

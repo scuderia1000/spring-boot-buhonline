@@ -25,6 +25,16 @@ public class ProductPrice {
     @Temporal(TemporalType.DATE)
     private Date createdDate;
 
+    public ProductPrice() {
+    }
+
+    public ProductPrice(Product product, Price price, Long value, Date createdDate) {
+        setProduct(product);
+        setPrice(price);
+        this.value = value;
+        this.createdDate = createdDate;
+    }
+
     public ProductPriceId getPrimaryKey() {
         return primaryKey;
     }

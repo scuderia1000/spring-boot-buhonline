@@ -1,6 +1,7 @@
 package com.valentin.ershov.service;
 
 import com.valentin.ershov.domain.Product;
+import com.valentin.ershov.domain.ProductPrice;
 
 /**
  * Created by Ershov-V-V on 12.01.2017.
