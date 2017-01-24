@@ -58,8 +58,7 @@ public class ProductController {
 
     @RequestMapping(value = "product", method = RequestMethod.POST)
     public String saveProduct(@RequestParam Integer id, @RequestParam String name, @RequestParam(required=false) Integer priceId,
-                              @RequestParam Long value, @RequestParam String action,
-                              @RequestParam(required=false) Integer priceIdToDelete, Model model) {
+                              @RequestParam Long value, @RequestParam String action, Model model) {
         Product product;
         Price price;
         ProductPrice productPrice;
@@ -69,14 +68,6 @@ public class ProductController {
         } else {
             product = new Product();
         }
-//        if (action.equals("delete")) {
-//            product.deleteProductPrice(priceIdToDelete);
-//            productService.saveProduct(product);
-//            model.addAttribute("product", productService.getProductById(product.getId()));
-//            model.addAttribute("prices", priceService.listAllPrices());
-//            return "productform";
-//        }
-
         product.setName(name);
         if (priceId != null) {
             price = priceService.getPriceById(priceId);
@@ -92,15 +83,7 @@ public class ProductController {
         model.addAttribute("product", productService.getProductById(product.getId()));
         model.addAttribute("prices", priceService.listAllPrices());
 
-        if (action.equals("add_price")) return "productform";
-
-        //Delete price from product
-        if (action.equals("delete")) {
-            product.deleteProductPrice(priceIdToDelete);
-            return "productform";
-        }
-
-        return"redirect:/product/" + product.getId();
+        return action.equals("add_price") ? "productform" : "redirect:/product/" + product.getId();
 
     }
 
@@ -151,6 +134,16 @@ public class ProductController {
     public String delete(@PathVariable Integer id) {
         productService.deleteProduct(id);
         return "redirect:/products";
+    }
+
+    @RequestMapping("product/delete_product_price/{id}/{priceIdToDelete}")
+    public String deleteProductPrice(@PathVariable Integer id, @PathVariable Integer priceIdToDelete, Model model) {
+        Product product = productService.getProductById(id);
+        product.deleteProductPrice(priceIdToDelete);
+        productService.saveProduct(product);
+        model.addAttribute("product", productService.getProductById(product.getId()));
+        model.addAttribute("prices", priceService.listAllPrices());
+        return "productform";
     }
 
 //    @RequestMapping(value = "/product/{id}/prices", method = RequestMethod.POST)

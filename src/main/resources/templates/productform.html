@@ -6,32 +6,32 @@
 
     <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
 
-    <!-- Показать поля для расчетной цены при загрузке страницы и при нажатии на чекбокс-->
-    <script type="text/javascript">
+    <!-- Расчет цены, если выбрана в списке цена с типом "Расчетная" -->
+    <!--<script type="text/javascript">-->
 
-        jQuery(document).ready(function () {
-            if ($('#is_calculated').is(':checked')) {
-                $('#calculated').css('display', 'block');
-            } else {
-                $('#calculated').css('display', 'none');
-            }
+        <!--jQuery(document).ready(function () {-->
+            <!--if ($('#is_calculated').is(':checked')) {-->
+                <!--$('#calculated').css('display', 'block');-->
+            <!--} else {-->
+                <!--$('#calculated').css('display', 'none');-->
+            <!--}-->
 
-            $('#is_calculated').change(function () {
-                if (this.checked)
-                    $('#calculated').show();
-                else
-                    $('#calculated').hide();
+            <!--$('#is_calculated').change(function () {-->
+                <!--if (this.checked)-->
+                    <!--$('#calculated').show();-->
+                <!--else-->
+                    <!--$('#calculated').hide();-->
 
-            });
+            <!--});-->
 
-        });
-        //        function showCalculatedField() {
-        //            if ($('#is_calculated').is(':checked'))
-        //                $('#calculated').show();
-        //            else
-        //                $('#calculated').hide();
-        //        }
-    </script>
+        <!--});-->
+                <!--function showCalculatedField() {-->
+                    <!--if ($('#is_calculated').is(':checked'))-->
+                        <!--$('#calculated').show();-->
+                    <!--else-->
+                        <!--$('#calculated').hide();-->
+                <!--}-->
+   <!--</script>-->
 
 </head>
 <body>
@@ -39,24 +39,7 @@
     <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
 
     <h2 th:text="#{product.add}"></h2>
-    <!--<div>-->
-    <!--<form class="form-horizontal" th:object="${product}" th:action="@{/product}" method="post">-->
-    <!--<input type="hidden" th:field="*{id}"/>-->
-    <!--<div class="form-group">-->
-    <!--<label class="col-sm-2 control-label" th:text="#{column.name} + ':'">Name</label>-->
-    <!--<div class="col-sm-10">-->
-    <!--<input type="text" class="form-control" th:field="*{name}"/>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--&lt;!&ndash;  Список цен у номенклатуры &ndash;&gt;-->
-    <!--<div class="form-group">-->
-    <!--<label class="col-sm-2 control-label">Prices: </label>-->
-    <!--<div class="col-sm-10">-->
-    <!--<span th:each="price : *{prices}">-->
-    <!--<br/><span th:text="${price.name}"/>-->
-    <!--</span>-->
-    <!--</div>-->
-    <!--</div>-->
+
     <div>
         <form class="form-horizontal" th:action="@{/product}" method="post">
             <input type="hidden" th:field="${product.id}"/>
@@ -76,31 +59,13 @@
                             <div class="col-md-2" th:text="${productPrice.price.name}">Price Name</div>
                             <div class="col-md-2" th:text="${productPrice.value}">Price Value</div>
                             <!--<span class="input-group-btn">-->
-									<button type="submit" class="btn btn-default" name="action" value="delete">Delete</button>
+                            <a class="btn btn-default" th:href="${'/product/delete_product_price/' + product.id + '/' + productPrice.price.id}" role="button" th:text="#{column.delete}">Delete</a>
+									<!--<button type="submit" class="btn btn-default" name="action" value="delete">Delete</button>-->
 								<!--</span>-->
                         </div>
                     </div>
                 </div>
             </div>
-            <!--<div class="form-group">-->
-            <!--<label class="col-sm-2 control-label" th:text="#{productform.prices}+':'">Prices: </label>-->
-            <!--<div class="col-sm-10">-->
-            <!--<table id="pricesTable" class="table table-striped">-->
-            <!--<thead>-->
-            <!--<tr>-->
-            <!--<th>Price</th>-->
-            <!--<th>Value</th>-->
-            <!--</tr>-->
-            <!--</thead>-->
-            <!--<tbody>-->
-            <!--<tr th:each="productPrice : ${product.productPrices}">-->
-            <!--<td th:text="${productPrice.price.name}">Price Name</td>-->
-            <!--<td th:text="${productPrice.value}">Price Value</td>-->
-            <!--</tr>-->
-            <!--</tbody>-->
-            <!--</table>-->
-            <!--</div>-->
-            <!--</div>-->
 
             <div class="row">
                 <!--<div class="form-group">-->

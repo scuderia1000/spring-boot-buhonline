@@ -2,6 +2,7 @@ package com.valentin.ershov.domain;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 /**
@@ -60,9 +61,10 @@ public class Product {
     }
 
     public void deleteProductPrice(Integer priceId) {
-        for (ProductPrice pp : getProductPrices()) {
+        for (Iterator<ProductPrice> it = getProductPrices().iterator(); it.hasNext();) {
+            ProductPrice pp = it.next();
             if (pp.getPrice().getId().equals(priceId)) {
-                productPrices.remove(pp);
+                it.remove();
             }
         }
     }
