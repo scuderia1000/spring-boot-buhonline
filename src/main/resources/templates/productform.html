@@ -7,31 +7,31 @@
     <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
 
     <!-- Расчет цены, если выбрана в списке цена с типом "Расчетная" -->
-    <!--<script type="text/javascript">-->
+    <script type="text/javascript">
 
-        <!--jQuery(document).ready(function () {-->
-            <!--if ($('#is_calculated').is(':checked')) {-->
-                <!--$('#calculated').css('display', 'block');-->
-            <!--} else {-->
-                <!--$('#calculated').css('display', 'none');-->
-            <!--}-->
+        jQuery(document).ready(function () {
+            if ($('#is_calculated').is(':checked')) {
+                $('#calculated').css('display', 'block');
+            } else {
+                $('#calculated').css('display', 'none');
+            }
 
-            <!--$('#is_calculated').change(function () {-->
-                <!--if (this.checked)-->
-                    <!--$('#calculated').show();-->
-                <!--else-->
-                    <!--$('#calculated').hide();-->
+            $('#is_calculated').change(function () {
+                if (this.checked)
+                    $('#calculated').show();
+                else
+                    $('#calculated').hide();
 
-            <!--});-->
+            });
 
-        <!--});-->
-                <!--function showCalculatedField() {-->
-                    <!--if ($('#is_calculated').is(':checked'))-->
-                        <!--$('#calculated').show();-->
-                    <!--else-->
-                        <!--$('#calculated').hide();-->
-                <!--}-->
-   <!--</script>-->
+        });
+                function showCalculatedField() {
+                    if ($('#is_calculated').is(':checked'))
+                        $('#calculated').show();
+                    else
+                        $('#calculated').hide();
+                }
+   </script>
 
 </head>
 <body>
