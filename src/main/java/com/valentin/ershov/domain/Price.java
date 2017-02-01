@@ -19,7 +19,7 @@ public class Price {
     private String unit;
     private boolean isCalculated;
     private Integer base_price_id;
-    private int multipler;
+    private Integer multipler;
 
 //    @ManyToMany
 //    @JoinTable(name = "product_price_value",
@@ -38,11 +38,11 @@ public class Price {
         this.base_price_id = base_price_id;
     }
 
-    public int getMultipler() {
+    public Integer getMultipler() {
         return multipler;
     }
 
-    public void setMultipler(int multipler) {
+    public void setMultipler(Integer multipler) {
         this.multipler = multipler;
     }
 

@@ -17,20 +17,24 @@
 //            }
 
             $('#priceId').change(function () {
-                if (this.checked)
-                    $('#calculated').show();
-                else
-                    $('#calculated').hide();
-
+                var mult = $('option:selected', this).attr('myTag');
+                if (mult != null || mult != 0) {
+                    $('#priceValue').val(mult);
+                }
+//        if (this.checked)
+//            $('#calculated').show();
+//        else
+//            $('#calculated').hide();
+//
             });
 
         });
-//        function showCalculatedField() {
-//            if ($('#is_calculated').is(':checked'))
-//                $('#calculated').show();
-//            else
-//                $('#calculated').hide();
-//        }
+        //        function showCalculatedField() {
+        //            if ($('#is_calculated').is(':checked'))
+        //                $('#calculated').show();
+        //            else
+        //                $('#calculated').hide();
+        //        }
     </script>
 
 </head>
@@ -64,6 +68,7 @@
                         </thead>
                         <tbody>
                         <tr th:each="productPrice : ${product.productPrices}">
+                            <input type="hidden" id="basePriceId" th:value="${productPrice.price.base_price_id}"/>
                             <td th:text="${productPrice.price.name}">Price Name</td>
                             <td th:text="${productPrice.value}">Price Value</td>
                             <td><a class="btn btn-default"
@@ -84,12 +89,13 @@
                             <option th:selected="selected" th:disabled="disabled" th:text="#{select.price}"
                                     value=""></option>
                             <option class="form-control input-sm" th:each="price : ${prices}"
-                                    th:value="${price.id}" th:text="${price.name}">Price
+                                    th:value="${price.id}" th:text="${price.name}" th:attr="myTag=${price.multipler}">
+                                Price
                             </option>
                         </select>
                     </div>
                     <div class="col-md-2">
-                        <input type="text" id="priceValue" class="form-control" name="value" />
+                        <input type="text" id="priceValue" class="form-control" name="value"/>
                     </div>
                     <div class="col-md-2">
                         <button type="submit" class="btn btn-default" name="action" value="add_price"
