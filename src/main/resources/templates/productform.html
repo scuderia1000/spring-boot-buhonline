@@ -10,13 +10,13 @@
     <script type="text/javascript">
 
         jQuery(document).ready(function () {
-            if ($('#is_calculated').is(':checked')) {
-                $('#calculated').css('display', 'block');
-            } else {
-                $('#calculated').css('display', 'none');
-            }
+//            if ($('#is_calculated').is(':checked')) {
+//                $('#calculated').css('display', 'block');
+//            } else {
+//                $('#calculated').css('display', 'none');
+//            }
 
-            $('#is_calculated').change(function () {
+            $('#priceId').change(function () {
                 if (this.checked)
                     $('#calculated').show();
                 else
@@ -25,13 +25,13 @@
             });
 
         });
-                function showCalculatedField() {
-                    if ($('#is_calculated').is(':checked'))
-                        $('#calculated').show();
-                    else
-                        $('#calculated').hide();
-                }
-   </script>
+//        function showCalculatedField() {
+//            if ($('#is_calculated').is(':checked'))
+//                $('#calculated').show();
+//            else
+//                $('#calculated').hide();
+//        }
+    </script>
 
 </head>
 <body>
@@ -44,77 +44,62 @@
         <form class="form-horizontal" th:action="@{/product}" method="post">
             <input type="hidden" th:field="${product.id}"/>
             <div class="form-group">
-                <label class="col-sm-2 control-label" th:text="#{column.name}+':'">Name</label>
-                <div class="col-sm-10">
+                <label class="col-md-2 control-label" th:text="#{column.name}+':'">Name</label>
+                <div class="col-md-10">
                     <input type="text" class="form-control" th:field="${product.name}"/>
                 </div>
             </div>
             <!--Список цен у номенклатуры -->
-            <div th:if="${not #lists.isEmpty(product.productPrices)}">
-                <div class="form-group">
-                    <label class="col-sm-2 control-label" th:text="#{productform.prices}+':'">Prices</label>
-                    <div class="col-sm-10">
-                        <div class="row" th:each="productPrice : ${product.productPrices}">
-                            <input type="hidden" name="priceIdToDelete" th:value="${productPrice.price.id}"/>
-                            <div class="col-md-2" th:text="${productPrice.price.name}">Price Name</div>
-                            <div class="col-md-2" th:text="${productPrice.value}">Price Value</div>
-                            <!--<span class="input-group-btn">-->
-                            <a class="btn btn-default" th:href="${'/product/delete_product_price/' + product.id + '/' + productPrice.price.id}" role="button" th:text="#{column.delete}">Delete</a>
-									<!--<button type="submit" class="btn btn-default" name="action" value="delete">Delete</button>-->
-								<!--</span>-->
-                        </div>
+
+            <div class="form-group" th:if="${not #lists.isEmpty(product.productPrices)}">
+                <label class="col-md-2 control-label" th:text="#{productform.prices}+':'">Prices</label>
+                <div class="col-md-6">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Value</th>
+                            <th>Delete</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="productPrice : ${product.productPrices}">
+                            <td th:text="${productPrice.price.name}">Price Name</td>
+                            <td th:text="${productPrice.value}">Price Value</td>
+                            <td><a class="btn btn-default"
+                                   th:href="${'/product/delete_product_price/' + product.id + '/' + productPrice.price.id}"
+                                   role="button" th:text="#{column.delete}">Delete</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-2 control-label" th:text="#{productform.price}+':'">Price</label>
+                <div class="col-md-10">
+
+                    <div class="col-md-4">
+                        <select name="priceId" id="priceId" class="form-control">
+                            <option th:selected="selected" th:disabled="disabled" th:text="#{select.price}"
+                                    value=""></option>
+                            <option class="form-control input-sm" th:each="price : ${prices}"
+                                    th:value="${price.id}" th:text="${price.name}">Price
+                            </option>
+                        </select>
                     </div>
+                    <div class="col-md-2">
+                        <input type="text" id="priceValue" class="form-control" name="value" />
+                    </div>
+                    <div class="col-md-2">
+                        <button type="submit" class="btn btn-default" name="action" value="add_price"
+                                th:text="#{priceshow.add}">Add price
+                        </button>
+                    </div>
+
+
                 </div>
             </div>
-
-            <div class="row">
-                <!--<div class="form-group">-->
-                <label class="col-sm-2 control-label" th:text="#{productform.price}+':'">Price</label>
-                <div class="col-sm-4">
-                    <select name="priceId" class="form-control">
-                        <option th:selected="selected" th:disabled="disabled" th:text="#{select.price}"
-                                value=""></option>
-                        <option class="form-control input-sm" th:each="price : ${prices}"
-                                th:value="${price.id}" th:text="${price.name}">Price
-                        </option>
-                    </select>
-                </div>
-                <div class="col-sm-2">
-                    <input type="text" class="form-control" name="value"/>
-                </div>
-                <div class="col-sm-1">
-                        <span class="input-group-btn">
-									<button type="submit" class="btn btn-default" name="action" value="add_price"
-                                            th:text="#{priceshow.add}">Add price</button>
-								</span>
-                </div>
-
-                <!--</div>-->
-            </div>
-
-
-            <!--<div class="form-group">-->
-            <!--<label class="col-sm-2 control-label" th:text="#{productform.price}+':'">Price</label>-->
-            <!--<div class="col-sm-10">-->
-            <!--&lt;!&ndash;<select path="prices" items="${prices}" multiple="true" itemValue="id" itemLabel="price" class="form-control input-sm"></select>&ndash;&gt;-->
-
-            <!--&lt;!&ndash; Список цен &ndash;&gt;-->
-            <!--<select class="form-control" name="priceId">-->
-            <!--<option th:selected="selected" th:disabled="disabled" th:text="#{select.price}"-->
-            <!--value=""></option>-->
-            <!--<option class="form-control input-sm" th:each="price : ${prices}"-->
-            <!--th:value="${price.id}" th:text="${price.name}"></option>-->
-            <!--</select>-->
-
-            <!--</div>-->
-            <!--</div>-->
-
-            <!--<div class="form-group">-->
-            <!--<label class="col-sm-2 control-label" th:text="#{column.value}+':'">Value</label>-->
-            <!--<div class="col-sm-10">-->
-            <!--<input type="text" class="form-control" name="value"/>-->
-            <!--</div>-->
-            <!--</div>-->
 
 
             <div class="row">
