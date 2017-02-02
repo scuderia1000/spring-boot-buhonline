@@ -18,9 +18,15 @@
 
             $('#priceId').change(function () {
                 var mult = $('option:selected', this).attr('myTag');
-                if (mult != null || mult != 0) {
-                    $('#priceValue').val(mult);
+                var basePriceId = $('#basePriceId').val();
+                var basePriceValue = $('#basePriceValue').val();
+                if (basePriceId != null &amp;&amp; basePriceId != 0) {
+
+                    $('#priceValue').value = basePriceValue * (mult / 100);
                 }
+//                if (mult != null || mult != 0) {
+//                    $('#priceValue').val(mult);
+//                }
 //        if (this.checked)
 //            $('#calculated').show();
 //        else
@@ -70,7 +76,7 @@
                         <tr th:each="productPrice : ${product.productPrices}">
                             <input type="hidden" id="basePriceId" th:value="${productPrice.price.base_price_id}"/>
                             <td th:text="${productPrice.price.name}">Price Name</td>
-                            <td th:text="${productPrice.value}">Price Value</td>
+                            <td id="basePriceValue" th:text="${productPrice.value}">Price Value</td>
                             <td><a class="btn btn-default"
                                    th:href="${'/product/delete_product_price/' + product.id + '/' + productPrice.price.id}"
                                    role="button" th:text="#{column.delete}">Delete</a></td>
