@@ -1,5 +1,5 @@
 # Spring boot sample application
-Used technology:
+Stack:
 <br/>spring boot
 <br/>thymeleaf
 <br/>spring mvc
