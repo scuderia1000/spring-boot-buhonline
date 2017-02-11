@@ -24,12 +24,12 @@
                     <input type="text" class="form-control" th:field="${product.name}"/>
                 </div>
             </div>
-            <!--Список цен у номенклатуры -->
 
+            <!--Список существующих цен у номенклатуры -->
             <div class="form-group" th:if="${not #lists.isEmpty(product.productPrices)}">
                 <label class="col-md-2 control-label" th:text="#{productform.prices}+':'">Prices</label>
                 <div class="col-md-6">
-                    <table class="table table-striped">
+                    <table class="table table-striped" id="pricesOfProduct">
                         <thead>
                         <tr>
                             <th>Name</th>
@@ -39,9 +39,10 @@
                         </thead>
                         <tbody>
                         <tr th:each="productPrice : ${product.productPrices}">
-                            <input type="hidden" id="basePriceId" th:value="${productPrice.price.base_price_id}"/>
                             <td th:text="${productPrice.price.name}">Price Name</td>
-                            <td id="basePriceValue" th:text="${productPrice.value}">Price Value</td>
+                            <td id="productPriceValue" th:text="${productPrice.value}"
+                                th:attr="productPriceId=${productPrice.price.id}">Price Value
+                            </td>
                             <td><a class="btn btn-default"
                                    th:href="${'/product/delete_product_price/' + product.id + '/' + productPrice.price.id}"
                                    role="button" th:text="#{column.delete}">Delete</a></td>
@@ -51,6 +52,7 @@
                 </div>
             </div>
 
+            <!-- Выбор и добавление цены -->
             <div class="form-group">
                 <label class="col-md-2 control-label" th:text="#{productform.price}+':'">Price</label>
                 <div class="col-md-10">
@@ -60,24 +62,22 @@
                             <option th:selected="selected" th:disabled="disabled" th:text="#{select.price}"
                                     value=""></option>
                             <option class="form-control input-sm" th:each="price : ${prices}"
-                                    th:value="${price.id}" th:text="${price.name}" th:attr="myTag=${price.multipler}">
+                                    th:value="${price.id}" th:text="${price.name}"
+                                    th:attr="multipler=${price.multipler}, baseId=${price.base_price_id}">
                                 Price
                             </option>
                         </select>
                     </div>
                     <div class="col-md-2">
-                        <input type="text" id="priceValue" class="form-control" name="value"/>
+                        <input type="number" min="0" id="priceValue" class="form-control" name="value" value=""/>
                     </div>
                     <div class="col-md-2">
                         <button type="submit" class="btn btn-default" name="action" value="add_price"
                                 th:text="#{priceshow.add}">Add price
                         </button>
                     </div>
-
-
                 </div>
             </div>
-
 
             <div class="row">
                 <button type="submit" class="btn btn-default" th:text="#{button.submit}" name="action"

@@ -3,9 +3,7 @@ package com.valentin.ershov.controllers;
 import com.valentin.ershov.domain.Price;
 import com.valentin.ershov.domain.Product;
 import com.valentin.ershov.domain.ProductPrice;
-import com.valentin.ershov.repository.ProductPriceRepository;
 import com.valentin.ershov.service.PriceService;
-import com.valentin.ershov.service.ProductPriceService;
 import com.valentin.ershov.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Created by Ershov-V-V on 12.01.2017.
@@ -26,12 +22,6 @@ import java.util.Set;
 public class ProductController {
     private ProductService productService;
     private PriceService priceService;
-//    private ProductPriceService productPriceService;
-
-//    @Autowired
-//    public void setProductPriceService(ProductPriceService productPriceService) {
-//        this.productPriceService = productPriceService;
-//    }
 
     @Autowired
     public void setPriceService(PriceService priceService) {
