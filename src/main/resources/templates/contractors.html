@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:dt="http://github.com/dandelion/datatables"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<!--xmlns:ddl="http://www.thymeleaf.org/dandelion"-->
+
+<head lang="en">
+
+    <title th:text="#{contractors.title}"></title>
+
+    <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+</head>
+<body>
+<div class="container">
+    <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+    <h2 th:text="#{contractors.title}"></h2>
+    <a class="btn btn-default" th:href="@{/contractor/new}" sec:authorize="hasRole('ROLE_ADMIN')" role="button" th:text="#{contractors.add}"></a>
+    <div th:if="${not #lists.isEmpty(contractors)}">
+        <table id="contractorTable" class="table table-striped"
+               dt:table="true" dt:pagination="true">
+            <thead>
+            <tr>
+                <th dt:sortable="false" th:text="#{column.id}"></th>
+                <th th:text="#{column.name}"></th>
+                <th th:text="#{column.view}"></th>
+                <th th:text="#{column.edit}"></th>
+                <th th:text="#{column.delete}"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="contractor : ${contractors}">
+                <td th:text="${contractor.id}"><a href="/contractor/${contractor.id}" th:text="#{column.id}"></a></td>
+                <td th:text="${contractor.name}"></td>
+                <td><a th:href="${'/contractor/' + contractor.id}" th:text="#{column.view}"></a></td>
+                <td><a th:href="${'/contractor/edit/' + contractor.id}" th:text="#{column.edit}"></a></td>
+                <td><a th:href="${'/contractor/delete/' + contractor.id}" th:text="#{column.delete}"></a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

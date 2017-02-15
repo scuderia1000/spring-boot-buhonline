@@ -10,35 +10,9 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class UnitServiceImpl extends AbstractService<Unit, Integer> {
-//    private UnitRepository unitRepository;
 
     @Autowired
     public UnitServiceImpl(UnitRepository repository) {
         super(repository);
     }
-
-//    @Autowired
-//    public void setUnitRepository(UnitRepository unitRepository) {
-//        this.unitRepository = unitRepository;
-//    }
-//
-//    @Override
-//    public Iterable<Unit> listAllUnits() {
-//        return unitRepository.findAll();
-//    }
-//
-//    @Override
-//    public Unit getUnitById(Integer id) {
-//        return unitRepository.findOne(id);
-//    }
-//
-//    @Override
-//    public Unit saveUnit(Unit unit) {
-//        return unitRepository.save(unit);
-//    }
-//
-//    @Override
-//    public void deleteUnit(Integer id) {
-//        unitRepository.delete(id);
-//    }
 }
