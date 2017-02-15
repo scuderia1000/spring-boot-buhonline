@@ -1,9 +1,8 @@
 package com.valentin.ershov.controllers;
 
 import com.valentin.ershov.domain.Price;
-import com.valentin.ershov.repository.Repository;
 import com.valentin.ershov.service.PriceServiceImpl;
-import com.valentin.ershov.service.UnitService;
+import com.valentin.ershov.service.UnitServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,10 +17,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class PriceController {
 //    private Repository<Price, Integer> priceService;
     private PriceServiceImpl priceService;
-    private UnitService unitService;
+    private UnitServiceImpl unitService;
 
     @Autowired
-    public void setUnitService(UnitService unitService) {
+    public void setUnitService(UnitServiceImpl unitService) {
         this.unitService = unitService;
     }
 
@@ -44,7 +43,7 @@ public class PriceController {
     @RequestMapping("price/new")
     public String newPrice(Model model) {
         model.addAttribute("price", new Price());
-        model.addAttribute("units", unitService.listAllUnits());
+        model.addAttribute("units", unitService.findAll());
         model.addAttribute("prices", priceService.findAll());
         return "priceform";
     }
@@ -64,7 +63,7 @@ public class PriceController {
     @RequestMapping("price/edit/{id}")
     public String edit(@PathVariable Integer id, Model model) {
         model.addAttribute("price", priceService.getById(id));
-        model.addAttribute("units", unitService.listAllUnits());
+        model.addAttribute("units", unitService.findAll());
         return "priceform";
     }
 
